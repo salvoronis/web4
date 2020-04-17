@@ -1,0 +1,13 @@
+registration
+	http://localhost:8080/rs/rest/auth/register
+	POST
+	{"login":"login","password":"hash"}
+	curl
+		curl --header "Content-Type: application/json" --request POST --data '{"login":"","password":""}' http://localhost:8080/rs/rest/auth/register
+
+login
+	http://localhost:8080/rs/rest/auth/login
+	POST
+	{"login":"login","password":"hash"}
+	curl
+		curl --header "Content-Type: application/json" --request POST --data '{"login":"","password":""}' http://localhost:8080/rs/rest/auth/login

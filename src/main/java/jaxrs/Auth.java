@@ -6,19 +6,52 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import com.jaxrs.models.User;
+import com.jaxrs.models.AnswerRegister;
 import com.jaxrs.managers.UserManager;
-import org.apache.commons.codec.digest.DigestUtils;
+import java.security.SecureRandom;
 
 @Path("/auth")
 public class Auth {
 	@POST
-	@Path("/auth")
+	@Path("/register")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public User auth(User user){
-		user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
-        Long result = UserManager.add(user);
-        System.out.println(result);
-		return user;
+	public AnswerRegister register(User user){
+		try{
+			SecureRandom random = new SecureRandom();
+			byte bytes[] = new byte[20];
+			random.nextBytes(bytes);
+			user.setToken(bytes.toString());
+
+        	Long result = UserManager.add(user);
+        	AnswerRegister answer = new AnswerRegister(user.getToken(), true);
+        	return answer;
+    	} catch (Exception ex) {
+    		return new AnswerRegister(false);
+    	}
+	}
+
+	@POST
+	@Path("/login")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public AnswerRegister login(User user){
+		try{
+			User dbuser = UserManager.getByLogin(user.getLogin());
+			boolean correct = dbuser.getPassword().equals(user.getPassword());
+			if (correct){
+				SecureRandom random = new SecureRandom();
+				byte bytes[] = new byte[20];
+				random.nextBytes(bytes);
+				String token = bytes.toString();
+				dbuser.setToken(token);
+				UserManager.update(dbuser);
+				return new AnswerRegister(token, correct);
+			} else {
+				return new AnswerRegister(false);
+			}
+		} catch(Exception e){
+			return new AnswerRegister(false);
+		}
 	}
 }
