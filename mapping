@@ -4,6 +4,7 @@ registration
 	{"login":"login","password":"hash"}
 	curl
 		curl --header "Content-Type: application/json" --request POST --data '{"login":"","password":""}' http://localhost:8080/rs/rest/auth/register
+	return {"token":"token","pass":true}
 
 login
 	http://localhost:8080/rs/rest/auth/login
@@ -11,3 +12,20 @@ login
 	{"login":"login","password":"hash"}
 	curl
 		curl --header "Content-Type: application/json" --request POST --data '{"login":"","password":""}' http://localhost:8080/rs/rest/auth/login
+	return {"token":"token","pass":true}
+
+get points array
+	http://localhost:8080/rs/rest/main/getPoints
+	GET
+	{"login":"login","token":"token"}
+	curl
+		curl --header "Content-Type: application/json" --request GET --data '{"login":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/getPoints
+	return [{"id":616,"x":1.0,"y":1.0,"r":1.0,"result":"Y","login":"nikita","token":null},{"id":617,"x":1.0,"y":1.2,"r":1.0,"result":"Y","login":"nikita","token":null}]
+
+app point
+	http://localhost:8080/rs/rest/main/getPoints
+	POST
+	{"x":1.1,"y":1,"r":1,"author":"login"} //todo token
+	curl
+		curl --header "Content-Type: application/json" --request POST --data '{"x":1,"y":1,"r":1,"author":"nikita"}' http://localhost:8080/rs/rest/main/getPoints
+	return {}

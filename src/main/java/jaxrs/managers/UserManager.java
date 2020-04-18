@@ -1,13 +1,9 @@
 package com.jaxrs.managers;
 
 import com.jaxrs.models.User;
-//import javax.persistence.criteria.*;
 import org.hibernate.*;
 import javax.persistence.Persistence;
-//import javax.persistence.Query;
 import java.util.List;
-//import org.hibernate.query.Query;
-//import org.hibernate.Hibernate;
 
 public class UserManager {
 	public static Long add(User user){
