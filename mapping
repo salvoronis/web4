@@ -22,10 +22,18 @@ get points array
 		curl --header "Content-Type: application/json" --request GET --data '{"login":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/getPoints
 	return [{"id":616,"x":1.0,"y":1.0,"r":1.0,"result":"Y","login":"nikita","token":null},{"id":617,"x":1.0,"y":1.2,"r":1.0,"result":"Y","login":"nikita","token":null}]
 
-app point
+add point
 	http://localhost:8080/rs/rest/main/getPoints
 	POST
-	{"x":1.1,"y":1,"r":1,"author":"login"} //todo token
+	{"x":1.1,"y":1,"r":1,"login":"login","token":"token"} //todo token
 	curl
-		curl --header "Content-Type: application/json" --request POST --data '{"x":1,"y":1,"r":1,"author":"nikita"}' http://localhost:8080/rs/rest/main/getPoints
+		curl --header "Content-Type: application/json" --request POST --data '{"x":1,"y":1,"r":1,"login":"login","token":"token"}' http://localhost:8080/rs/rest/main/getPoints
+	return {"id":123,"x":1.0,"y":1.0,"r":1.0,"result":"N","login":"ani","token":"[B@42f81196"}
+
+exit
+	http://localhost:8080/rs/rest/main/exit
+	POST
+	{"login":"login","token":"token"}
+	curl
+		curl --header "Content-Type: application/json" --request POST --data '{"login":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/exit
 	return {}

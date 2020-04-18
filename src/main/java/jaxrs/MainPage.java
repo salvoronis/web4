@@ -30,7 +30,7 @@ public class MainPage {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Point addPoint(Point point){
-		boolean corToken = UserManager.getByLogin(user.getLogin()).getToken().equals(user.getToken()) || !UserManager.getByLogin(user.getLogin()).getToken().equals("");
+		boolean corToken = UserManager.getByLogin(point.getLogin()).getToken().equals(point.getToken()) || !UserManager.getByLogin(point.getLogin()).getToken().equals("");
 		if(corToken){
 			point.solve();
 			PointManager.add(point);
