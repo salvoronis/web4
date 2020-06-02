@@ -37,6 +37,10 @@ public class Point{
 		this.r = r;
 	}
 
+	public Point(){
+		
+	}
+
 	public void solve(){
 		if ((this.x <= 0.0) && (this.y >= 0.0) && (this.y <= this.x*2.0 + this.r)) {
 			this.result = "Y";
