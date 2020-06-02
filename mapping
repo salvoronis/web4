@@ -27,7 +27,7 @@ add point
 	POST
 	{"x":1.1,"y":1,"r":1,"login":"login","token":"token"} //todo token
 	curl
-		curl --header "Content-Type: application/json" --request POST --data '{"x":1,"y":1,"r":1,"login":"login","token":"token"}' http://localhost:8080/rs/rest/main/getPoints
+		curl --header "Content-Type: application/json" --request POST --data '{"x":1,"y":1,"r":1,"login":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/getPoints
 	return {"id":123,"x":1.0,"y":1.0,"r":1.0,"result":"N","login":"ani","token":"[B@42f81196"}
 
 exit

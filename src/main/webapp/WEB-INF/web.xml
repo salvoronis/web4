@@ -15,15 +15,15 @@
 		<param-value>true</param-value>
 	</context-param>-->
 
-	<context-param>
+	<!--<context-param>
 		<param-name>resteasy.resources</param-name>
 		<param-value>com.jaxrs.Auth</param-value>
-	</context-param>
+	</context-param>-->
 
 	<context-param>
 		<param-name>resteasy.resources</param-name>
 		<param-value>com.jaxrs.MainPage</param-value>
-	</context-param>
+    </context-param>
 	
 	<!-- this need same with resteasy servlet url-pattern -->
 	<context-param>

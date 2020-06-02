@@ -31,6 +31,12 @@ public class Point{
 	@Transient
 	private String token;
 
+	public Point(double x,double y,double r){
+		this.x = x;
+		this.y = y;
+		this.r = r;
+	}
+
 	public void solve(){
 		if ((this.x <= 0.0) && (this.y >= 0.0) && (this.y <= this.x*2.0 + this.r)) {
 			this.result = "Y";
