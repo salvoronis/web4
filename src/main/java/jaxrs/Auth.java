@@ -12,8 +12,8 @@ import com.jaxrs.models.AnswerRegister;
 import com.jaxrs.managers.UserManager;
 import java.security.SecureRandom;
 
-@ApplicationPath("/auth")
-public class Auth extends Application {
+@Path("/auth")
+public class Auth {
 	@POST
 	@Path("/register")
 	@Consumes("application/json")
