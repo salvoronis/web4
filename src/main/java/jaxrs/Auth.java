@@ -39,7 +39,7 @@ public class Auth {
 	@Produces("application/json")
 	public AnswerRegister login(User user){
 		try{
-			User dbuser = UserManager.getByLogin(user.getLogin());
+			User dbuser = UserManager.getByLogin(user.getEmail());
 			boolean correct = dbuser.getPassword().equals(user.getPassword());
 			if (correct){
 				SecureRandom random = new SecureRandom();

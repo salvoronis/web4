@@ -18,7 +18,7 @@ public class MainPage {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public List<Point> getPoints(User user){
-		boolean corToken = UserManager.getByLogin(user.getLogin()).getToken().equals(user.getToken()) || !UserManager.getByLogin(user.getLogin()).getToken().equals("");
+		boolean corToken = UserManager.getByLogin(user.getEmail()).getToken().equals(user.getToken()) && !UserManager.getByLogin(user.getEmail()).getToken().equals("anime");
 		if (corToken){
 			return PointManager.getList();
 		}
@@ -30,7 +30,7 @@ public class MainPage {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Point addPoint(Point point){
-		boolean corToken = UserManager.getByLogin(point.getLogin()).getToken().equals(point.getToken()) || !UserManager.getByLogin(point.getLogin()).getToken().equals("");
+		boolean corToken = UserManager.getByLogin(point.getLogin()).getToken().equals(point.getToken()) && !UserManager.getByLogin(point.getLogin()).getToken().equals("anime");
 		if(corToken){
 			point.solve();
 			PointManager.add(point);
@@ -44,8 +44,8 @@ public class MainPage {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public boolean exit(User user){
-		User userdb = UserManager.getByLogin(user.getLogin());
-		userdb.setToken("");
+		User userdb = UserManager.getByLogin(user.getEmail());
+		userdb.setToken("anime");
 		UserManager.update(userdb);
 		return true;
 	}
