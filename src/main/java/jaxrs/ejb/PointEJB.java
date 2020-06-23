@@ -1,12 +1,15 @@
-package com.jaxrs.managers;
+package com.jaxrs.ejb;
 
 import com.jaxrs.models.Point;
 import org.hibernate.*;
 import javax.persistence.Persistence;
 import java.util.List;
+import javax.ejb.Stateless;
+import com.jaxrs.hibernate.HibernateUtil;
 
-public class PointManager {
-	public static Long add(Point point){
+@Stateless
+public class PointEJB{
+	public Long add(Point point){
 		Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 session.save(point);
@@ -15,7 +18,7 @@ public class PointManager {
 		return new Long(123);
 	}
 
-	public static List<Point> getList(){
+	public List<Point> getList(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 List<Point> result = session.createQuery("from Point order by id").list();
@@ -23,7 +26,7 @@ public class PointManager {
                 session.close();
                 return result;
 	}
-        public static int getDotsNumb(String login){
+        public int getDotsNumb(String login){
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 Query query = session.createQuery("select count(*) from Point where login = :login");
@@ -32,7 +35,7 @@ public class PointManager {
                 int res = result.intValue();
                 return res;
         }
-        public static int getResNumb(String val){
+        public int getResNumb(String val){
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
                 Query query = session.createQuery("select count(*) from Point where result = :val");

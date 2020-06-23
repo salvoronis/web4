@@ -7,20 +7,26 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import com.jaxrs.models.User;
 import com.jaxrs.models.Point;
-import com.jaxrs.managers.UserManager;
-import com.jaxrs.managers.PointManager;
 import java.util.List;
+import javax.ejb.EJB;
+import com.jaxrs.ejb.*;
 
 @Path("/main")
 public class MainPage {
+	@EJB
+	PointEJB pointEJB;
+
+	@EJB
+	UserEJB userEJB;
+
 	@GET
 	@Path("/getPoints")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public List<Point> getPoints(User user){
-		boolean corToken = UserManager.getByLogin(user.getEmail()).getToken().equals(user.getToken()) && !UserManager.getByLogin(user.getEmail()).getToken().equals("anime");
+		boolean corToken = userEJB.getByLogin(user.getEmail()).getToken().equals(user.getToken()) && !userEJB.getByLogin(user.getEmail()).getToken().equals("anime");
 		if (corToken){
-			return PointManager.getList();
+			return pointEJB.getList();
 		}
 		return null;
 	}
@@ -30,10 +36,10 @@ public class MainPage {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Point addPoint(Point point){
-		boolean corToken = UserManager.getByLogin(point.getLogin()).getToken().equals(point.getToken()) && !UserManager.getByLogin(point.getLogin()).getToken().equals("anime");
+		boolean corToken = userEJB.getByLogin(point.getLogin()).getToken().equals(point.getToken()) && !userEJB.getByLogin(point.getLogin()).getToken().equals("anime");
 		if(corToken){
 			point.solve();
-			PointManager.add(point);
+			pointEJB.add(point);
 			return point;
 		}
 		return null;
@@ -44,9 +50,9 @@ public class MainPage {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public boolean exit(User user){
-		User userdb = UserManager.getByLogin(user.getEmail());
+		User userdb = userEJB.getByLogin(user.getEmail());
 		userdb.setToken("anime");
-		UserManager.update(userdb);
+		userEJB.update(userdb);
 		return true;
 	}
 }

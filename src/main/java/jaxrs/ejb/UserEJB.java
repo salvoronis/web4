@@ -1,11 +1,14 @@
-package com.jaxrs.managers;
+package com.jaxrs.ejb;
 
 import com.jaxrs.models.User;
 import org.hibernate.*;
 import javax.persistence.Persistence;
 import java.util.List;
+import com.jaxrs.hibernate.HibernateUtil;
+import javax.ejb.Stateless;
 
-public class UserManager {
+@Stateless
+public class UserEJB{
 	public static Long add(User user){
 		Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

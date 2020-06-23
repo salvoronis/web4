@@ -9,11 +9,16 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.Produces;
 import com.jaxrs.models.User;
 import com.jaxrs.models.AnswerRegister;
-import com.jaxrs.managers.UserManager;
+//import com.jaxrs.managers.UserManager;
 import java.security.SecureRandom;
+import com.jaxrs.ejb.*;
+import javax.ejb.EJB;
 
 @Path("/auth")
 public class Auth {
+	@EJB
+	UserEJB userEJB;
+
 	@POST
 	@Path("/register")
 	@Consumes("application/json")
@@ -25,7 +30,7 @@ public class Auth {
 			random.nextBytes(bytes);
 			user.setToken(bytes.toString());
 
-        	Long result = UserManager.add(user);
+        	Long result = userEJB.add(user);
         	AnswerRegister answer = new AnswerRegister(user.getToken(), true);
         	return answer;
     	} catch (Exception ex) {
@@ -39,7 +44,7 @@ public class Auth {
 	@Produces("application/json")
 	public AnswerRegister login(User user){
 		try{
-			User dbuser = UserManager.getByLogin(user.getEmail());
+			User dbuser = userEJB.getByLogin(user.getEmail());
 			boolean correct = dbuser.getPassword().equals(user.getPassword());
 			if (correct){
 				SecureRandom random = new SecureRandom();
@@ -47,7 +52,7 @@ public class Auth {
 				random.nextBytes(bytes);
 				String token = bytes.toString();
 				dbuser.setToken(token);
-				UserManager.update(dbuser);
+				userEJB.update(dbuser);
 				return new AnswerRegister(token, correct);
 			} else {
 				return new AnswerRegister(false);

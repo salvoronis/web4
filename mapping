@@ -9,23 +9,23 @@ registration
 login
 	http://localhost:8080/rs/rest/auth/login
 	POST
-	{"login":"login","password":"hash"}
+	{"email":"login","password":"hash"}
 	curl
-		curl --header "Content-Type: application/json" --request POST --data '{"login":"","password":""}' http://localhost:8080/rs/rest/auth/login
+		curl --header "Content-Type: application/json" --request POST --data '{"email":"","password":""}' http://localhost:8080/rs/rest/auth/login
 	return {"token":"token","pass":true}
 
 get points array
 	http://localhost:8080/rs/rest/main/getPoints
 	GET
-	{"login":"login","token":"token"}
+	{"email":"login","token":"token"}
 	curl
-		curl --header "Content-Type: application/json" --request GET --data '{"login":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/getPoints
+		curl --header "Content-Type: application/json" --request GET --data '{"email":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/getPoints
 	return [{"id":616,"x":1.0,"y":1.0,"r":1.0,"result":"Y","login":"nikita","token":null},{"id":617,"x":1.0,"y":1.2,"r":1.0,"result":"Y","login":"nikita","token":null}]
 
 add point
 	http://localhost:8080/rs/rest/main/getPoints
 	POST
-	{"x":1.1,"y":1,"r":1,"login":"login","token":"token"} //todo token
+	{"x":1.1,"y":1,"r":1,"login":"login","token":"token"}
 	curl
 		curl --header "Content-Type: application/json" --request POST --data '{"x":1,"y":1,"r":1,"login":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/getPoints
 	return {"id":123,"x":1.0,"y":1.0,"r":1.0,"result":"N","login":"ani","token":"[B@42f81196"}
@@ -33,7 +33,7 @@ add point
 exit
 	http://localhost:8080/rs/rest/main/exit
 	POST
-	{"login":"login","token":"token"}
+	{"email":"login","token":"token"}
 	curl
-		curl --header "Content-Type: application/json" --request POST --data '{"login":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/exit
+		curl --header "Content-Type: application/json" --request POST --data '{"email":"ani","token":"[B@42f81196"}' http://localhost:8080/rs/rest/main/exit
 	return {}

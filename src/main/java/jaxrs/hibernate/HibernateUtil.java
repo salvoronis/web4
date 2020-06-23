@@ -1,4 +1,4 @@
-package com.jaxrs.managers;
+package com.jaxrs.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

@@ -1,13 +1,16 @@
 package com.jaxrs.anime;
 
 import java.util.ArrayList;
-import com.jaxrs.managers.PointManager;
+import com.jaxrs.ejb.PointEJB;
 import java.lang.Math;
 import com.jaxrs.models.Point;
+import javax.ejb.EJB;
 
 public class Distance implements DistanceMBean{
+	@EJB
+	PointEJB pointEJB;
 	public double averangeDistance(){
-		ArrayList<Point> list = (ArrayList<Point>)PointManager.getList();
+		ArrayList<Point> list = (ArrayList<Point>)pointEJB.getList();
 		ArrayList<Double> results = new ArrayList<Double>();
 		double sleep = 0;
 		for (int i = 0;i<list.size();i++) {
